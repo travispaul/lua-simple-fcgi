@@ -6,9 +6,9 @@
 
 lua_State *L;
 
-int accept;
-int stop;
-int restart;
+int lsf_accept;
+int lsf_stop;
+int lsf_restart;
 
 static void
 usage() {
@@ -19,7 +19,7 @@ usage() {
 static void
 handle_restart(int signo) {
 
-    lua_rawgeti(L, LUA_REGISTRYINDEX, restart);
+    lua_rawgeti(L, LUA_REGISTRYINDEX, lsf_restart);
 
     lua_pcall(L, 0, 0, 0);
 
@@ -32,7 +32,7 @@ handle_stop(int signo) {
     // We should exit based on a return value
     // and also cleanup lua and fastcgi start
 
-    lua_rawgeti(L, LUA_REGISTRYINDEX, stop);
+    lua_rawgeti(L, LUA_REGISTRYINDEX, lsf_stop);
 
     lua_pcall(L, 0, 0, 0);
 
@@ -49,9 +49,9 @@ main(int argc, char *argv[]) {
 
     L = luaL_newstate();
 
-    accept = 0;
-    stop = 0;
-    restart = 0;
+    lsf_accept = 0;
+    lsf_stop = 0;
+    lsf_restart = 0;
 
     if (L == NULL) {
         fprintf(stderr, "Failed to create lua state\n");
@@ -78,7 +78,7 @@ main(int argc, char *argv[]) {
 
     if (lua_isfunction(L, -1)) {
         lua_pushvalue(L, -1);
-        accept = luaL_ref(L, LUA_REGISTRYINDEX);
+        lsf_accept = luaL_ref(L, LUA_REGISTRYINDEX);
         lua_pop(L, 1);
     } else {
         fprintf(stderr, "Lua file doesn't provide an \"accept\" function.\n");
@@ -92,7 +92,7 @@ main(int argc, char *argv[]) {
 
     if (lua_isfunction(L, -1)) {
         lua_pushvalue(L, -1);
-        stop = luaL_ref(L, LUA_REGISTRYINDEX);
+        lsf_stop = luaL_ref(L, LUA_REGISTRYINDEX);
         if (signal(SIGTERM, handle_stop) == SIG_ERR) {
             fprintf(stderr, "Unable to set signal handler.\n");
             return 6;
@@ -108,7 +108,7 @@ main(int argc, char *argv[]) {
 
     if (lua_isfunction(L, -1)) {
         lua_pushvalue(L, -1);
-        restart = luaL_ref(L, LUA_REGISTRYINDEX);
+        lsf_restart = luaL_ref(L, LUA_REGISTRYINDEX);
         if (signal(SIGHUP, handle_restart) == SIG_ERR) {
             fprintf(stderr, "Unable to set signal handler.\n");
             return 7;
@@ -142,7 +142,7 @@ main(int argc, char *argv[]) {
     // they would take over stdout and stderr and we couldn't easily
     // send any output to the console until we called FCGI_Accept.
 
-    return lsf_start(L, accept);
+    return lsf_start(L, lsf_accept);
 }
 
 

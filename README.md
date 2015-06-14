@@ -15,24 +15,23 @@ The only required function is ```accept```.
 
 ### accept
 
-The ```accept``` function is called each time a request is made. It's single argument
-is a table with the environment variables from the web server.
+The ```accept``` function is called each time a request is made.
 
-You must return an array with headers and optionally a response body. An
-incorrectly formatted return value will result in a 500 error.
+You must return a string with the correctly formatted headers and response body.
 
 The ```Status``` header is particularly important, it is needed by the web server
 to return the correct response code and header.
 
+You can access the REQUEST_URI, REQUEST_METHOD and other environment variables
+using the ``os.getenv`` function.
+
 ```lua
-    function accept(env)
-        local headers = {
-            "Content-type" = "text/html",
-            "Status" =  [200, "OK"]}
+    function accept()
 
-        local body = "<h1>Hello, I'm a malformed HTML document!</h1>"
+        return "Status: 200 Ok\r\n" ..
+            "Content-Type: text/html\r\n\r\n" ..
+            "<h1>Hello!</h1>"
 
-        return headers, body
     end
 ```
 
