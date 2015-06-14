@@ -2,7 +2,6 @@
 
 A simple FastCGI interface for writing stateful web applications in Lua.
 
-
 ## Usage
 
 You should create a lua script that returns a table with the following 4 functions.
@@ -84,11 +83,6 @@ If a non-zero return value is returned the process will not terminate. <sup>Feat
 ```shell
   spawn-fcgi -p 9999 -- lua-simple-fcgi app.lua
 ```
-
-## Examples:
-
-* [Lua Scripts](examples/lua)
-* [Web Server Configuration](examples/config)
 
 ## Building
 
