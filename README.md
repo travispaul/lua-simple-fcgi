@@ -87,6 +87,7 @@ If a non-zero return value is returned the process will not terminate. <sup>Feat
 ## Building
 
 ```shell
+  git submodule update --init --recursive
   mkdir build
   cd build
   cmake ..
