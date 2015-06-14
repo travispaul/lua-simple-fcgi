@@ -5,7 +5,7 @@ project(lua-simple-fcgi C)
 set(CMAKE_BUILD_TYPE Debug)
 
 set(CMAKE_MODULE_PATH
-    ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_MODULE_PATH})
+    ${CMAKE_SOURCE_DIR}/cmake_modules ${CMAKE_MODULE_PATH})
 
 find_package(lua)
 
