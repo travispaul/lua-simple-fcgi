@@ -87,7 +87,7 @@ If a non-zero return value is returned the process will not terminate. <sup>Feat
 
 ## Examples:
 
-* [Lua Scripts](examples/scripts)
+* [Lua Scripts](examples/lua)
 * [Web Server Configuration](examples/config)
 
 ## Building
