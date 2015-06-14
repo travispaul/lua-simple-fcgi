@@ -13,6 +13,6 @@ find_package(fcgi)
 
 include_directories(${LUA_INCLUDE_DIR} ${FCGI_INCLUDE_DIR})
 
-add_executable (lua-fcgi main.c lsf.c)
+add_executable (lua-fcgi main.c)
 
 target_link_libraries(lua-fcgi ${LUA_LIBRARY} ${FCGI_LIBRARY})

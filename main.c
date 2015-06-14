@@ -2,11 +2,15 @@
 #include <stdlib.h>
 #include <signal.h>
 
-#include "lsf.h"
+#include <fcgi_stdio.h>
+extern void OS_LibShutdown();
+
+#include <lua.h>
+#include <lauxlib.h>
+#include <lualib.h>
 
 lua_State *L;
 
-int lsf_accept;
 int lsf_stop;
 int lsf_restart;
 
@@ -43,15 +47,17 @@ handle_stop(int signo) {
 int
 main(int argc, char *argv[]) {
 
+    int lsf_accept;
+
+    lsf_accept = 0;
+    lsf_stop = 0;
+    lsf_restart = 0;
+
     if (argc <= 1) {
         usage();
     }
 
     L = luaL_newstate();
-
-    lsf_accept = 0;
-    lsf_stop = 0;
-    lsf_restart = 0;
 
     if (L == NULL) {
         fprintf(stderr, "Failed to create lua state\n");
@@ -132,17 +138,16 @@ main(int argc, char *argv[]) {
     }
 
     lua_pop(L, 1);
-    
 
-    // This code is kept in a separate header and c file so that we can
-    // display the usage if a script is not provided or if the correct
-    // entry points are not provided by the script.
+    while (FCGI_Accept() >= 0) {
+        lua_rawgeti(L, LUA_REGISTRYINDEX, lsf_accept);
+        lua_pcall(L, 0, 1, 0);
+        printf(lua_tostring (L, -1));
+    }
 
-    // If the necessary FastCGI headers were included here
-    // they would take over stdout and stderr and we couldn't easily
-    // send any output to the console until we called FCGI_Accept.
+    FCGI_Finish();
 
-    return lsf_start(L, lsf_accept);
+    OS_LibShutdown();
 }
 
 
