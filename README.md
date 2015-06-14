@@ -82,7 +82,7 @@ If a non-zero return value is returned the process will not terminate. <sup>Feat
 ## Starting your app
 
 ```shell
-  spawn-fcgi <options> -- lua-simple-fcgi app.lua
+  spawn-fcgi -p 9999 -- lua-simple-fcgi app.lua
 ```
 
 ## Examples:
