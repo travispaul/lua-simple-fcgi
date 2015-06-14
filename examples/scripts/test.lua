@@ -1,6 +1,11 @@
 local test = {}
 local counter
 
+
+function getenv(env, default)
+    return os.getenv(env) or default
+end
+
 test.accept = function ()
 
     counter = counter + 1
@@ -9,9 +14,9 @@ test.accept = function ()
         "Content-Type: text/html\r\n\r\n"
 
     body = "<h1>Hello!</h1>" ..
-        "uri:" .. os.getenv("REQUEST_URI") ..
-        "<br />method: " .. os.getenv("REQUEST_METHOD") ..
-        "<br />requests: " .. counter
+        "uri:" .. getenv("REQUEST_URI", "\n") ..
+        "<br />method: " .. getenv("REQUEST_METHOD", "\n") ..
+        "<br />requests: " .. counter .. "\n"
 
     return header .. body
 end
