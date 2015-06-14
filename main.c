@@ -148,6 +148,8 @@ main(int argc, char *argv[]) {
     FCGI_Finish();
 
     OS_LibShutdown();
+
+    lua_close(L);
 }
 
 
