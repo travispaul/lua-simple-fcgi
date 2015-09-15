@@ -76,6 +76,8 @@ main(int argc, char *argv[]) {
         return 2;
     }
 
+    // XXX need to find a way to remove "print" and other functions
+    // that write to stdout and stderr
     luaL_openlibs(L);
 
     if (luaL_dofile(L, argv[1])) {
