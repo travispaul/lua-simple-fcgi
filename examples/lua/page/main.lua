@@ -15,7 +15,7 @@ function actions.GET(page)
     view.body = lustache:render(markdown(text), view)
     -- XXX make test case, and file bug report if applicable
  
-     sreturn util.response(lustache:render(template, view))
+     return util.response(lustache:render(template, view))
 end
 
 function fcgi.start()
@@ -42,7 +42,9 @@ function fcgi.accept()
     return actions[method](page)
 end
 
--- fcgi.start()
--- print(fcgi.accept())
+-- comment out in when running as fcgi
+fcgi.start()
+print(fcgi.accept())
+--
 
 return fcgi
