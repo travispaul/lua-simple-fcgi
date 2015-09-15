@@ -34,13 +34,25 @@ handle_stop(int signo) {
 
     // XXX
     // We should exit based on a return value
-    // and also cleanup lua and fastcgi start
 
     lua_rawgeti(L, LUA_REGISTRYINDEX, lsf_stop);
 
     lua_pcall(L, 0, 0, 0);
 
+    cleanup();
+
     exit(0); 
+
+}
+
+static void
+cleanup() {
+
+    FCGI_Finish();
+
+    OS_LibShutdown();
+
+    lua_close(L);
 
 }
 
@@ -145,11 +157,5 @@ main(int argc, char *argv[]) {
         printf(lua_tostring (L, -1));
     }
 
-    FCGI_Finish();
-
-    OS_LibShutdown();
-
-    lua_close(L);
+    cleanup();
 }
-
-
