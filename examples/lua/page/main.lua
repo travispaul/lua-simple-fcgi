@@ -42,9 +42,9 @@ function fcgi.accept()
     return actions[method](page)
 end
 
--- comment out in when running as fcgi
-fcgi.start()
-print(fcgi.accept())
+-- uncomment when testing or running as CGI
+-- fcgi.start()
+-- print(fcgi.accept())
 --
 
 return fcgi
