@@ -21,6 +21,17 @@ usage() {
 }
 
 static void
+cleanup() {
+
+    FCGI_Finish();
+
+    OS_LibShutdown();
+
+    lua_close(L);
+
+}
+
+static void
 handle_restart(int signo) {
 
     lua_rawgeti(L, LUA_REGISTRYINDEX, lsf_restart);
@@ -42,17 +53,6 @@ handle_stop(int signo) {
     cleanup();
 
     exit(0); 
-
-}
-
-static void
-cleanup() {
-
-    FCGI_Finish();
-
-    OS_LibShutdown();
-
-    lua_close(L);
 
 }
 
