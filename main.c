@@ -114,7 +114,7 @@ main(int argc, char *argv[]) {
         lua_pushvalue(L, -1);
         lsf_stop = luaL_ref(L, LUA_REGISTRYINDEX);
         if (signal(SIGTERM, handle_stop) == SIG_ERR) {
-            fprintf(stderr, "Unable to set signal handler.\n");
+            fprintf(stderr, "Unable to set SIGTERM handler.\n");
             return 6;
         }
     }
@@ -130,7 +130,7 @@ main(int argc, char *argv[]) {
         lua_pushvalue(L, -1);
         lsf_restart = luaL_ref(L, LUA_REGISTRYINDEX);
         if (signal(SIGHUP, handle_restart) == SIG_ERR) {
-            fprintf(stderr, "Unable to set signal handler.\n");
+            fprintf(stderr, "Unable to set SIGHUP handler.\n");
             return 7;
         }
     }
