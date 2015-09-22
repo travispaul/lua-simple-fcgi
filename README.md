@@ -26,7 +26,7 @@ using the `os.getenv` function.
 
 You can never call `print` in the accept function, the FastCGI library owns
 standard input, output and error at this point. Calling `print` will cause
-stdout to close and your application will be unable to repspond to requests.
+stdout to close and your application will be unable to respond to requests.
 
 ```lua
     function accept()
