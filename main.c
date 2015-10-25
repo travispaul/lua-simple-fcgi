@@ -52,7 +52,7 @@ handle_stop(int signo) {
 
     cleanup();
 
-    exit(0); 
+    exit(0);
 
 }
 
@@ -156,7 +156,7 @@ main(int argc, char *argv[]) {
     while (FCGI_Accept() >= 0) {
         lua_rawgeti(L, LUA_REGISTRYINDEX, lsf_accept);
         lua_pcall(L, 0, 1, 0);
-        printf(lua_tostring (L, -1));
+        fprintf(stderr, "%s", lua_tostring (L, -1));
     }
 
     cleanup();
