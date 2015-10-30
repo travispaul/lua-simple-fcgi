@@ -156,7 +156,7 @@ main(int argc, char *argv[]) {
     while (FCGI_Accept() >= 0) {
         lua_rawgeti(L, LUA_REGISTRYINDEX, lsf_accept);
         lua_pcall(L, 0, 1, 0);
-        fprintf(stderr, "%s", lua_tostring (L, -1));
+        fprintf(stdout, "%s", lua_tostring (L, -1));
     }
 
     cleanup();
