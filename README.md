@@ -7,10 +7,10 @@ A simple FastCGI interface for writing stateful web applications in Lua.
 Create a lua script that returns a table with the following 4 functions.
 The only required function is ```accept```.
 
-* accept
-* start
-* restart
-* stop
+* [accept](#accept)
+* [start](#start)
+* [restart](#restart)
+* [stop](#stop)
 
 ### accept
 
@@ -91,9 +91,9 @@ If a non-zero return value is returned the process will not terminate.
   make
 ```
 
-## Starting your app
+## Running your app
 
-See the examples directory for webserver configuration and example lua scripts.
+See the [examples](examples) and [test](test) directories for webserver configuration and example lua scripts.
 
 ```shell
   $ spawn-fcgi -p 9999 -- lua-fcgi app.lua
