@@ -84,7 +84,7 @@ If a non-zero return value is returned the process will not terminate.
 ## Starting your app
 
 ```shell
-  spawn-fcgi -p 9999 -- lua-simple-fcgi app.lua
+  spawn-fcgi -p 9999 -- lua-fcgi app.lua
 ```
 
 ## Building
