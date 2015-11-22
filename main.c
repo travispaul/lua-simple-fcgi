@@ -9,10 +9,10 @@ extern void OS_LibShutdown();
 #include <lauxlib.h>
 #include <lualib.h>
 
-lua_State *L;
-
 int stop;
 int restart;
+lua_State *L;
+FILE *logfile;
 
 static void
 usage() {
@@ -25,6 +25,7 @@ cleanup() {
     FCGI_Finish();
     OS_LibShutdown();
     lua_close(L);
+    fclose(logfile);
 }
 
 static void
@@ -49,7 +50,6 @@ main(int argc, char *argv[]) {
     int accept;
     int start_result;
     char *logpath;
-    FILE *logfile;
 
     initialized = 0;
     accept = 0;
