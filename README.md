@@ -43,7 +43,7 @@ This is a good place to open database connections, parse config files or
 perform any other initialization tasks needed by your application.
 
 Any non-zero return value will be considered a failure and the process will exit
-with the return code. <sup>Feature not yet implemented</sup>
+with the return code.
 
 ```lua
     function run()
@@ -81,12 +81,6 @@ If a non-zero return value is returned the process will not terminate.
     end
 ```
 
-## Starting your app
-
-```shell
-  spawn-fcgi -p 9999 -- lua-fcgi app.lua
-```
-
 ## Building
 
 ```shell
@@ -96,3 +90,28 @@ If a non-zero return value is returned the process will not terminate.
   cmake ..
   make
 ```
+
+## Starting your app
+
+See the examples directory for webserver configuration and example lua scripts.
+
+```shell
+  $ spawn-fcgi -p 9999 -- lua-fcgi app.lua
+  spawn-fcgi: child spawned successfully: PID: 17003  
+```
+
+For debugging you can run the application on the command line in CGI mode:
+```shell
+  $ ./lua-fcgi app.lua
+  Lua file doesn't provide an "accept" function.
+```
+
+Or you can supply an environmnet variable named ```ERRLOG``` with the path
+to a log file:
+```shell
+  $ ERRLOG=/path/to/my.log spawn-fcgi -p 9999 -- lua-fcgi app.lua
+  spawn-fcgi: child spawned successfully: PID: 4025
+  $ cat /path/to/my.log
+  Error start function returned non-zero value: 101  
+```
+

@@ -17,7 +17,7 @@ end
 
 test.start = function ()
     start_count = start_count + 1
-    return 1
+    return 101
 end
 
 return test
