@@ -1,3 +1,5 @@
+package.path = package.path .. ";?.lua"
+
 local util = require 'util'
 local lustache = require 'lustache'
 local markdown = require 'markdown'
@@ -37,7 +39,7 @@ end
 
 function app.accept()
     local method = os.getenv('REQUEST_METHOD') or 'GET'
-    local url = os.getenv('REQUEST_URI') or arg[1]
+    local url = os.getenv('REQUEST_URI')
     local parts = util.split(url, '/')
     local controller = parts[0]
     local page = parts[1]
