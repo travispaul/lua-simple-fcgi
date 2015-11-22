@@ -7,12 +7,12 @@ set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_MODULE_PATH
     ${CMAKE_SOURCE_DIR}/cmake_modules ${CMAKE_MODULE_PATH})
 
-find_package(lua)
+find_package(Lua)
 
-find_package(fcgi)
+find_package(FCGI)
 
 include_directories(${LUA_INCLUDE_DIR} ${FCGI_INCLUDE_DIR})
 
 add_executable (lua-fcgi main.c)
 
-target_link_libraries(lua-fcgi ${LUA_LIBRARY} ${FCGI_LIBRARY})
+target_link_libraries(lua-fcgi m ${LUA_LIBRARY} ${FCGI_LIBRARY})
