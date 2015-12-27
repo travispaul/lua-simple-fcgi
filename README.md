@@ -25,8 +25,9 @@ You can access the REQUEST_URI, REQUEST_METHOD and other environment variables
 using the `os.getenv` function.
 
 You can never call `print` in the accept function, the FastCGI library owns
-standard input, output and error at this point. Calling `print` will cause
-stdout to close and your application will be unable to respond to requests.
+standard input, standard output, and standard error at this point. Calling
+`print` will cause standard out to close and your application will be unable to
+respond to requests.
 
 ```lua
     function accept()
@@ -93,7 +94,8 @@ If a non-zero return value is returned the process will not terminate.
 
 ## Running your app
 
-See the [examples](examples) and [test](test) directories for webserver configuration and example lua scripts.
+See the [examples](examples) and [test](test) directories for webserver
+configuration and example lua scripts.
 
 ```shell
   $ spawn-fcgi -p 9999 -- lua-fcgi app.lua
@@ -106,7 +108,7 @@ For debugging you can run the application on the command line in CGI mode:
   Lua file doesn't provide an "accept" function.
 ```
 
-Or you can supply an environmnet variable named ```ERRLOG``` with the path
+Or you can supply an environment variable named ```ERRLOG``` with the path
 to a log file:
 ```shell
   $ ERRLOG=/path/to/my.log spawn-fcgi -p 9999 -- lua-fcgi app.lua
@@ -114,4 +116,3 @@ to a log file:
   $ cat /path/to/my.log
   Error start function returned non-zero value: 101  
 ```
-
